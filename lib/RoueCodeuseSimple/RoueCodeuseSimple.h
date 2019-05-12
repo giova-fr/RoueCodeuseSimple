@@ -13,10 +13,13 @@ class RoueCodeuseSimple
      static short _position;
      static short _positionMax;
      static bool _boutonStatut;
-     static int _dataAvant;
+     static int _clockAvant;
      static bool _boutonAvant;
 
      static void ReadBoutonAlgorithme();
+     static void ReadCodeuseAlgorithme();
+     static void IncrementePosition();
+     static void DecrementePosition();
     
 
      //Callbacks
@@ -24,6 +27,7 @@ class RoueCodeuseSimple
 
      public:
      static ptFnReadDigital __ReadDigital;
+     static void __ForcePos(int pos);
      static void Initialise(int pinBouton, int pinData, int pinClock,short positionMax);
      static bool IsReady();
      static void Tick();

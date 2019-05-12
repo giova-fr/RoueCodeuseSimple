@@ -2,6 +2,13 @@
 #include <RoueCodeuseSimple.h>
 
  int pinBouton,pinClock,pinData;
+ int MockReadPinDigital(int pin)
+{
+  return 0;
+}
+
+
+
 
 void DoitEtrePret_Quand_ToutesBrochesConfigured()
 {
@@ -41,6 +48,7 @@ void DoitEtreEnPositionZero_ApresInit()
 
 int main( int argc, char **argv) {
     UNITY_BEGIN();
+    RoueCodeuseSimple::__ReadDigital = MockReadPinDigital;
     RUN_TEST(DoitEtrePret_Quand_ToutesBrochesConfigured);
     RUN_TEST(DoitEtreEnPositionZero_ApresInit);
     UNITY_END();

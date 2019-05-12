@@ -11,10 +11,15 @@ short RoueCodeuseSimple::_position = 0;
 short RoueCodeuseSimple::_positionMax = 0;
 bool RoueCodeuseSimple::_boutonStatut = true;
 bool RoueCodeuseSimple::_boutonAvant = true;
-int RoueCodeuseSimple::_dataAvant = 0;
+int RoueCodeuseSimple::_clockAvant = 0;
 ptFnReadDigital RoueCodeuseSimple::__ReadDigital = 0;
 
 ptFnBoutonStatus RoueCodeuseSimple::_boutonPressedCallback = 0;
+
+void RoueCodeuseSimple::__ForcePos(int pos)
+{
+    _position = pos;
+}
 
 void   RoueCodeuseSimple::Initialise(int pinBouton, int pinData, int pinClock,short positionMax)
 {
@@ -34,9 +39,10 @@ void   RoueCodeuseSimple::Initialise(int pinBouton, int pinData, int pinClock,sh
     };
     
     _boutonStatut = true;
-    _boutonAvant = true;
+    _boutonAvant = 1;
     _position = 0;
-    _dataAvant = 0;
+   
+    _clockAvant = 1;
 };
 
 bool  RoueCodeuseSimple::IsReady(){
@@ -46,6 +52,20 @@ bool  RoueCodeuseSimple::IsReady(){
 short  RoueCodeuseSimple::GetPosition(){
     return RoueCodeuseSimple::_position;
 };
+
+void RoueCodeuseSimple::IncrementePosition() {
+    if(_position == _positionMax)
+        _position = 0;
+    else
+        _position++;
+}
+
+void RoueCodeuseSimple::DecrementePosition() {
+ if(_position == 0)
+        _position = _positionMax;
+    else
+        _position--;
+}
 
 bool  RoueCodeuseSimple::GetBoutonStatut(){
     return RoueCodeuseSimple::_boutonStatut;
@@ -62,8 +82,28 @@ void RoueCodeuseSimple::ReadBoutonAlgorithme()
     
 }
 
+void  RoueCodeuseSimple::ReadCodeuseAlgorithme()
+{
+    int clockPos = __ReadDigital(_brocheClock);
+    int dataPos = __ReadDigital(_brocheData);
+    if(clockPos == _clockAvant)
+        return;
+    
+    _clockAvant = clockPos;
+    if(dataPos != clockPos) //Horaire
+    {
+        IncrementePosition();
+    }
+    else //AntiHoraire
+    {
+        DecrementePosition();
+    }
+
+}
+
 void RoueCodeuseSimple::Tick(){
     ReadBoutonAlgorithme();
+    ReadCodeuseAlgorithme();
 }
 
 void RoueCodeuseSimple::AbonneBoutonChanged(ptFnBoutonStatus callback){

@@ -3,6 +3,12 @@
 
  int pinBouton,pinClock,pinData;
 
+int MockReadPinDigital(int pin)
+{
+  return 1;
+}
+
+
 
 int SimuleBoutonMaintenuPressed(int pin)
 {
@@ -43,8 +49,8 @@ void DoitAppellerCallbackLorsqueBoutonPressed()
    
 
   //Prepare;
-  RoueCodeuseSimple::Initialise(pinBouton,pinData,pinClock,4);
   RoueCodeuseSimple::__ReadDigital = SimuleBoutonMaintenuPressed;
+  RoueCodeuseSimple::Initialise(pinBouton,pinData,pinClock,4);
   RoueCodeuseSimple::AbonneBoutonChanged(StubCallbackBouton);
   StubBoutonPos = -1;
   int attendu  = 0;
@@ -63,8 +69,9 @@ void DoitAppellerCallbackBouton_UniquementSiIlChangePosition()
 
   //Prepare test bouton maintenu
   nbrAppelCallbackBouton = 0;
-  RoueCodeuseSimple::Initialise(pinBouton,pinData,pinClock,4);
   RoueCodeuseSimple::__ReadDigital = SimuleBoutonMaintenuPressed;
+  RoueCodeuseSimple::Initialise(pinBouton,pinData,pinClock,4);
+  
   RoueCodeuseSimple::AbonneBoutonChanged(StubCallbackBouton);
   int attenduNbrAppels = 1;
 
@@ -100,6 +107,7 @@ int main( int argc, char **argv) {
     pinBouton = 1;
     pinClock = 2;
     pinData = 3;
+    RoueCodeuseSimple::__ReadDigital  = MockReadPinDigital;
     RoueCodeuseSimple::Initialise(pinBouton,pinData,pinClock,4);
 
     RUN_TEST(DoitAppellerCallbackLorsqueBoutonPressed);
