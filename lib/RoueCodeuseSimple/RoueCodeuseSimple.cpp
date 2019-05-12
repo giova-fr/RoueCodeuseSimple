@@ -30,7 +30,13 @@ void   RoueCodeuseSimple::Initialise(int pinBouton, int pinData, int pinClock,sh
         _brocheData = pinData;
         _brocheBouton = pinBouton;
         _positionMax = positionMax-1;
+        
     };
+    
+    _boutonStatut = true;
+    _boutonAvant = true;
+    _position = 0;
+    _dataAvant = 0;
 };
 
 bool  RoueCodeuseSimple::IsReady(){
