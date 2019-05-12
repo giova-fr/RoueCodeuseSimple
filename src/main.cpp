@@ -6,7 +6,7 @@
 #define PIN_CLK 4
 #define PIN_DATA 5
 #define PIN_BOUTON 0
-#define ROUE_MAXPOS 4
+#define ROUE_NBR_DE_POS 4
 
 //déclaration des callbacks
 void QuandBoutonChange(bool position);
@@ -18,8 +18,9 @@ void setup() {
   Serial.begin(9600);
   Serial.println("Bonjour");
 
-  RoueCodeuseSimple::Initialise(PIN_CLK,PIN_DATA,PIN_BOUTON,ROUE_MAXPOS);
+  RoueCodeuseSimple::Initialise(PIN_CLK,PIN_DATA,PIN_BOUTON,ROUE_NBR_DE_POS);
   RoueCodeuseSimple::AbonneBoutonChanged(QuandBoutonChange); //accroche la callback a l'evenement BoutonChanged
+  RoueCodeuseSimple::AbonnePositionChanged(QuandPositionChange); //accroche la callback a l'evenement PositionChange
   Serial.println("roue codeuse configurée");
   
   Serial.print("etat bouton initial: ");
@@ -39,6 +40,15 @@ void QuandBoutonChange(bool position)
   else
     Serial.println("---bouton enfoncé---");
   
+}
+
+void QuandPositionChange(int position, bool sens)
+{
+  if(sens)
+    Serial.print("sens     Horraire, position : ");
+  else
+    Serial.print("sens AntiHorraire, position : ");
+  Serial.println(position);
 }
 
 #endif

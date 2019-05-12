@@ -15,6 +15,7 @@ int RoueCodeuseSimple::_clockAvant = 0;
 ptFnReadDigital RoueCodeuseSimple::__ReadDigital = 0;
 
 ptFnBoutonStatus RoueCodeuseSimple::_boutonPressedCallback = 0;
+ptFnPosChange RoueCodeuseSimple::_positionChangeCallback = 0;
 
 void RoueCodeuseSimple::__ForcePos(int pos)
 {
@@ -77,7 +78,7 @@ void RoueCodeuseSimple::ReadBoutonAlgorithme()
     bool _boutonStatut = (boutonRawPos == 1) ? true : false;
     bool copiedavant = _boutonAvant;
     _boutonAvant = _boutonStatut;
-    if(copiedavant != _boutonStatut)
+    if(_boutonPressedCallback && copiedavant != _boutonStatut)
         _boutonPressedCallback(_boutonStatut );
     
 }
@@ -93,10 +94,14 @@ void  RoueCodeuseSimple::ReadCodeuseAlgorithme()
     if(dataPos != clockPos) //Horaire
     {
         IncrementePosition();
+        if(_positionChangeCallback)
+            _positionChangeCallback(_position,true);
     }
     else //AntiHoraire
     {
         DecrementePosition();
+        if(_positionChangeCallback)
+            _positionChangeCallback(_position,false);
     }
 
 }
@@ -108,4 +113,8 @@ void RoueCodeuseSimple::Tick(){
 
 void RoueCodeuseSimple::AbonneBoutonChanged(ptFnBoutonStatus callback){
     _boutonPressedCallback = callback;
+}
+
+void RoueCodeuseSimple::AbonnePositionChanged(ptFnPosChange callback) {
+    _positionChangeCallback = callback;
 }

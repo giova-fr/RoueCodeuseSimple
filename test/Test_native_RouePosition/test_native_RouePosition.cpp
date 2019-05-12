@@ -132,6 +132,102 @@ void DoitBouclerSur_Zero_QuandIncrementeMaxPos()
 
 }
 
+int positionDansCallBack;
+bool isHoraireDansCallBack;
+int countCallbackPosAppels = 0;
+
+void callbackPosition(int pos,bool isHoraire) {
+    positionDansCallBack = pos;
+    isHoraireDansCallBack = isHoraire;
+    countCallbackPosAppels++;
+}
+
+void DoitAppellerCallbackQuandBougeHorraire()
+{
+    //Prepare
+    
+    RoueCodeuseSimple::__ReadDigital = SimuleHoraire;
+    RoueCodeuseSimple::AbonnePositionChanged(callbackPosition);
+
+    countCallbackPosAppels = 0;
+    int attendu = 1;
+
+    //Act
+    RoueCodeuseSimple::Tick();
+
+    //Test
+    TEST_ASSERT_EQUAL(attendu,countCallbackPosAppels);
+}
+
+void NeDoitPasAppellerCallbackQuandNeBougePas()
+{
+    RoueCodeuseSimple::__ReadDigital = SimuleImmobile;
+    RoueCodeuseSimple::AbonnePositionChanged(callbackPosition);
+
+    countCallbackPosAppels = 0;
+    int attendu = 0;
+
+    //Act
+    RoueCodeuseSimple::Tick();
+
+    //Test
+    TEST_ASSERT_EQUAL(attendu,countCallbackPosAppels);
+}
+
+void DoitAppellerCallbackQuandBougeAntiHorraire()
+{
+    //Prepare
+    RoueCodeuseSimple::__ReadDigital = SimuleAntiHoraire;
+    RoueCodeuseSimple::AbonnePositionChanged(callbackPosition);
+  
+    countCallbackPosAppels = 0;
+    int attendu = 1;
+
+    //Act
+    RoueCodeuseSimple::Tick();
+
+    //Test
+    TEST_ASSERT_EQUAL(attendu,countCallbackPosAppels);
+}
+
+void DoitFournirSensDansCallBack_LorsqueHoraire()
+{
+    //Prepare
+    RoueCodeuseSimple::__ReadDigital = SimuleHoraire;
+    RoueCodeuseSimple::AbonnePositionChanged(callbackPosition);
+
+    int posAvant = RoueCodeuseSimple::GetPosition();
+    positionDansCallBack = posAvant;
+    isHoraireDansCallBack = false; //je fausse expres
+
+    //Act
+    RoueCodeuseSimple::Tick();
+
+    //Test
+    TEST_ASSERT_NOT_EQUAL(posAvant,positionDansCallBack);
+    TEST_ASSERT_TRUE(isHoraireDansCallBack);
+
+}
+
+void DoitFournirSensDansCallBack_LorsqueAntiHoraire()
+{
+    //Prepare
+    RoueCodeuseSimple::__ReadDigital = SimuleAntiHoraire;
+    RoueCodeuseSimple::AbonnePositionChanged(callbackPosition);
+
+    int posAvant = RoueCodeuseSimple::GetPosition();
+    positionDansCallBack = posAvant;
+    isHoraireDansCallBack = true; //je fausse expres
+
+    //Act
+    RoueCodeuseSimple::Tick();
+
+    //Test
+    TEST_ASSERT_NOT_EQUAL(posAvant,positionDansCallBack);
+    TEST_ASSERT_FALSE(isHoraireDansCallBack);
+
+}
+
 
 
 int main( int argc, char **argv) {
@@ -145,6 +241,11 @@ int main( int argc, char **argv) {
     RUN_TEST(DoitDecrementerPosition_SiAntiHoraire);
     RUN_TEST(DoitBouclerSur_MaxPos_QuandDecrementeZero);
     RUN_TEST(DoitBouclerSur_Zero_QuandIncrementeMaxPos);
+    RUN_TEST(DoitAppellerCallbackQuandBougeHorraire);
+    RUN_TEST(NeDoitPasAppellerCallbackQuandNeBougePas);
+    RUN_TEST(DoitAppellerCallbackQuandBougeAntiHorraire);
+    RUN_TEST(DoitFournirSensDansCallBack_LorsqueHoraire);
+    RUN_TEST(DoitFournirSensDansCallBack_LorsqueAntiHoraire);
 
     UNITY_END();
 }

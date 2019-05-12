@@ -1,6 +1,7 @@
 #ifndef ROUE_CODEUSE_SIMPLE_H_
 #define ROUE_CODEUSE_SIMPLE_H_
 typedef void (*ptFnBoutonStatus)(bool);
+typedef void (*ptFnPosChange)(int,bool);
 typedef int (*ptFnReadDigital)(int);
 
 class RoueCodeuseSimple
@@ -24,6 +25,7 @@ class RoueCodeuseSimple
 
      //Callbacks
      static ptFnBoutonStatus _boutonPressedCallback;
+     static ptFnPosChange _positionChangeCallback;
 
      public:
      static ptFnReadDigital __ReadDigital;
@@ -34,6 +36,7 @@ class RoueCodeuseSimple
      static short GetPosition();
      static bool GetBoutonStatut();
      static void AbonneBoutonChanged(ptFnBoutonStatus callback);
+     static void AbonnePositionChanged(ptFnPosChange callback);
      
 };
 
