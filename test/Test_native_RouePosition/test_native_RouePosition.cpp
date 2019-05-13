@@ -18,7 +18,7 @@ int SimuleHoraire(uint8_t pin)
     }
     if(pin == pinData)
     {
-        return lastSimulatedClock ? 0 : 1;
+        return lastSimulatedClock;
     }
     return 1;
 }
@@ -32,7 +32,7 @@ int SimuleAntiHoraire(uint8_t pin)
     }
     if(pin == pinData)
     {
-        return lastSimulatedClock;
+        return lastSimulatedClock ? 0 : 1;
     }
     return 1;
 }

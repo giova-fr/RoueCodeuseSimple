@@ -91,7 +91,7 @@ void  RoueCodeuseSimple::ReadCodeuseAlgorithme()
         return;
     
     _clockAvant = clockPos;
-    if(dataPos != clockPos) //Horaire
+    if(dataPos == clockPos) //Horaire
     {
         IncrementePosition();
         if(_positionChangeCallback)
