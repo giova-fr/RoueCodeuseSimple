@@ -10,9 +10,7 @@
 
 //déclaration des callbacks
 void QuandBoutonChange(bool position);
-
-#define BUF_LEN 128 
-char buffer[BUF_LEN];
+void QuandPositionChange(int position, bool sens);
 
 void setup() {
   Serial.begin(9600);
