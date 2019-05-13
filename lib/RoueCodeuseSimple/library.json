@@ -1,0 +1,22 @@
+{
+    "name": "RoueCodeuseSimple",
+    "keywords": "RoueCodeuse, rotary-encoder, arduino",
+    "description": "Arduino Library for rotary encoder, uses event/callback pattern",
+    "repository":
+    {
+      "type": "git",
+      "url": "https://github.com/milesburton/Arduino-Temperature-Control-Library.git"
+    },
+    "authors":
+    [
+      {
+        "name": "Romain GIOVAGNOLI",
+        "email": "giovainscrip-dev@yahoo.fr",
+        "url": "https://github.com/giova-fr",
+        "maintainer": true
+      }
+    ],
+    "version": "1.0.0",
+    "frameworks": "arduino",
+    "platforms": "*"
+  }
