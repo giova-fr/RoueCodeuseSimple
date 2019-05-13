@@ -4,9 +4,9 @@
 #endif
 
 
-int RoueCodeuseSimple::_brocheBouton = 0;
-int RoueCodeuseSimple::_brocheData = 0;
-int RoueCodeuseSimple::_brocheClock = 0;
+uint8_t RoueCodeuseSimple::_brocheBouton = 0;
+uint8_t RoueCodeuseSimple::_brocheData = 0;
+uint8_t RoueCodeuseSimple::_brocheClock = 0;
 short RoueCodeuseSimple::_position = 0;
 short RoueCodeuseSimple::_positionMax = 0;
 bool RoueCodeuseSimple::_boutonStatut = true;
@@ -22,7 +22,7 @@ void RoueCodeuseSimple::__ForcePos(int pos)
     _position = pos;
 }
 
-void   RoueCodeuseSimple::Initialise(int pinBouton, int pinData, int pinClock,short positionMax)
+void   RoueCodeuseSimple::Initialise(uint8_t pinBouton, uint8_t pinData, uint8_t pinClock,short positionMax)
 {
     if(!IsReady())
     {

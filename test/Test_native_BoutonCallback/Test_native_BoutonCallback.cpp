@@ -3,14 +3,14 @@
 
  int pinBouton,pinClock,pinData;
 
-int MockReadPinDigital(int pin)
+int MockReadPinDigital(uint8_t pin)
 {
   return 1;
 }
 
 
 
-int SimuleBoutonMaintenuPressed(int pin)
+int SimuleBoutonMaintenuPressed(uint8_t pin)
 {
     if(pin == pinBouton)
       return 0;
@@ -20,7 +20,7 @@ int SimuleBoutonMaintenuPressed(int pin)
 
 bool lastbtpos = true;
 
-int SimuleBoutonInverse(int pin)
+int SimuleBoutonInverse(uint8_t pin)
 {
   
   if(pin == pinBouton)

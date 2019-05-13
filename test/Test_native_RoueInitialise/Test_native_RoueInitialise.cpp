@@ -2,7 +2,7 @@
 #include <RoueCodeuseSimple.h>
 
  int pinBouton,pinClock,pinData;
- int MockReadPinDigital(int pin)
+ int MockReadPinDigital(uint8_t pin)
 {
   return 0;
 }

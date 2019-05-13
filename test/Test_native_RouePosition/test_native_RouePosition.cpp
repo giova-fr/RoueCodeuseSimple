@@ -2,14 +2,14 @@
 #include <RoueCodeuseSimple.h>
 
  int pinBouton,pinClock,pinData;
- int MockReadPinDigital(int pin)
+ int MockReadPinDigital(uint8_t pin)
 {
   return 1;
 }
 
 int lastSimulatedData, lastSimulatedClock = 0;
 
-int SimuleHoraire(int pin)
+int SimuleHoraire(uint8_t pin)
 {
     if(pin == pinClock)
     {
@@ -23,7 +23,7 @@ int SimuleHoraire(int pin)
     return 1;
 }
 
-int SimuleAntiHoraire(int pin)
+int SimuleAntiHoraire(uint8_t pin)
 {
     if(pin == pinClock)
     {
@@ -37,7 +37,7 @@ int SimuleAntiHoraire(int pin)
     return 1;
 }
 
-int SimuleImmobile(int pin)
+int SimuleImmobile(uint8_t pin)
 {
     if(pin == pinClock)
     {

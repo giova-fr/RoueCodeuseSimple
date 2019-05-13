@@ -1,15 +1,17 @@
 #ifndef ROUE_CODEUSE_SIMPLE_H_
 #define ROUE_CODEUSE_SIMPLE_H_
+#include <stdint.h>
+
 typedef void (*ptFnBoutonStatus)(bool);
 typedef void (*ptFnPosChange)(int,bool);
-typedef int (*ptFnReadDigital)(int);
+typedef int (*ptFnReadDigital)(uint8_t);
 
 class RoueCodeuseSimple
 {
     private:
-     static int _brocheBouton;
-     static int _brocheData;
-     static int _brocheClock;
+     static uint8_t _brocheBouton;
+     static uint8_t _brocheData;
+     static uint8_t _brocheClock;
 
      static short _position;
      static short _positionMax;
@@ -30,7 +32,7 @@ class RoueCodeuseSimple
      public:
      static ptFnReadDigital __ReadDigital;
      static void __ForcePos(int pos);
-     static void Initialise(int pinBouton, int pinData, int pinClock,short positionMax);
+     static void Initialise(uint8_t pinBouton, uint8_t pinData, uint8_t pinClock,short positionMax);
      static bool IsReady();
      static void Tick();
      static short GetPosition();
