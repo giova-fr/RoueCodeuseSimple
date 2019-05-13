@@ -16,7 +16,7 @@ void setup() {
   Serial.begin(9600);
   Serial.println("Bonjour");
 
-  RoueCodeuseSimple::Initialise(PIN_CLK,PIN_DATA,PIN_BOUTON,ROUE_NBR_DE_POS);
+  RoueCodeuseSimple::Initialise(PIN_BOUTON,PIN_DATA,PIN_CLK,ROUE_NBR_DE_POS);
   RoueCodeuseSimple::AbonneBoutonChanged(QuandBoutonChange); //accroche la callback a l'evenement BoutonChanged
   RoueCodeuseSimple::AbonnePositionChanged(QuandPositionChange); //accroche la callback a l'evenement PositionChange
   Serial.println("roue codeuse configurée");
