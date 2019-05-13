@@ -42,6 +42,8 @@ void QuandBoutonChange(bool position)
 
 void QuandPositionChange(int position, bool sens)
 {
+  if(position % 2 == 0)
+    return;
   if(sens)
     Serial.print("sens     Horraire, position : ");
   else
