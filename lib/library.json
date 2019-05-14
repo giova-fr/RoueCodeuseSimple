@@ -16,7 +16,12 @@
         "maintainer": true
       }
     ],
-    "version": "1.0.0",
-    "frameworks": "arduino",
-    "platforms": "*"
+    "export": {
+      "include":
+      [
+          "lib/RoueCodeuseSimple/*"
+      ]
+  },
+    "license": "AGPL-3.0-only",
+    "frameworks": "arduino"
   }
