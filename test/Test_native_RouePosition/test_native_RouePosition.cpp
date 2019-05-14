@@ -57,7 +57,7 @@ void DoitIncrementerPosition_SiHoraire()
   //Prepare;
   RoueCodeuseSimple::__ReadDigital = SimuleHoraire;
   lastSimulatedClock = SimuleHoraire(pinClock);
-  RoueCodeuseSimple::Initialise(pinBouton,pinData,pinClock,4);
+  RoueCodeuseSimple::Initialise(pinBouton,true,pinData,pinClock,4);
   
   RoueCodeuseSimple::__ForcePos(1);
   int attendu  = RoueCodeuseSimple::GetPosition() + 1;
@@ -77,7 +77,7 @@ void DoitDecrementerPosition_SiAntiHoraire()
   //Prepare;
   RoueCodeuseSimple::__ReadDigital = SimuleAntiHoraire;
   lastSimulatedClock = SimuleHoraire(pinClock);
-  RoueCodeuseSimple::Initialise(pinBouton,pinData,pinClock,4);
+  RoueCodeuseSimple::Initialise(pinBouton,true,pinData,pinClock,4);
   
   RoueCodeuseSimple::__ForcePos(2);
   int attendu  = RoueCodeuseSimple::GetPosition() - 1;
@@ -96,7 +96,7 @@ void DoitBouclerSur_MaxPos_QuandDecrementeZero()
     int nbrpos = 4;
     RoueCodeuseSimple::__ReadDigital = SimuleAntiHoraire;
     lastSimulatedClock = SimuleHoraire(pinClock);
-    RoueCodeuseSimple::Initialise(pinBouton,pinData,pinClock,nbrpos);
+    RoueCodeuseSimple::Initialise(pinBouton,true,pinData,pinClock,nbrpos);
     
     RoueCodeuseSimple::__ForcePos(0);
     int attendu = nbrpos -1 ; //car premiere position à 0 et non à 1
@@ -117,7 +117,7 @@ void DoitBouclerSur_Zero_QuandIncrementeMaxPos()
     int nbrpos = 4;
     RoueCodeuseSimple::__ReadDigital = SimuleHoraire;
     lastSimulatedClock = SimuleHoraire(pinClock);
-    RoueCodeuseSimple::Initialise(pinBouton,pinData,pinClock,nbrpos);
+    RoueCodeuseSimple::Initialise(pinBouton,true,pinData,pinClock,nbrpos);
     
     RoueCodeuseSimple::__ForcePos(nbrpos-1); //car premiere position à 0 et non à 1
     int attendu = 0 ; 

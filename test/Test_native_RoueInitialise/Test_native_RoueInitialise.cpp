@@ -21,7 +21,7 @@ void DoitEtrePret_Quand_ToutesBrochesConfigured()
   osef = 0;
 
   //Act
-  RoueCodeuseSimple::Initialise(pinBouton,pinData,pinClock,osef);
+  RoueCodeuseSimple::Initialise(pinBouton,true,pinData,pinClock,osef);
 
   //Test
   TEST_ASSERT_TRUE(RoueCodeuseSimple::IsReady());
@@ -40,7 +40,7 @@ void DoitEtreEnPositionZero_ApresInit()
     short attendu = 0;
 
     //Act
-    RoueCodeuseSimple::Initialise(pinBouton,pinData,pinClock,osef);
+    RoueCodeuseSimple::Initialise(pinBouton,true,pinData,pinClock,osef);
     short actuel = RoueCodeuseSimple::GetPosition();
     //Test
     TEST_ASSERT_EQUAL(attendu,actuel);
