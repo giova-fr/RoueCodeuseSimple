@@ -22,14 +22,19 @@ void RoueCodeuseSimple::__ForcePos(int pos)
     _position = pos;
 }
 
-void   RoueCodeuseSimple::Initialise(uint8_t pinBouton, uint8_t pinData, uint8_t pinClock,short positionMax)
+void   RoueCodeuseSimple::Initialise(uint8_t pinBouton, bool pullup, uint8_t pinData, uint8_t pinClock,short positionMax)
 {
     if(!IsReady())
     {
 #ifdef ARDUINO
         pinMode(pinClock,INPUT);
         pinMode(pinData,INPUT);
-        pinMode(pinBouton,INPUT);
+        
+        if(pullup)
+            pinMode(pinBouton,INPUT_PULLUP);
+        else
+            pinMode(pinBouton,INPUT);
+
         __ReadDigital = digitalRead;
 #endif
         _brocheClock = pinClock;

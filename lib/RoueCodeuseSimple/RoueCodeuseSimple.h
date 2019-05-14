@@ -32,7 +32,7 @@ class RoueCodeuseSimple
      public:
      static ptFnReadDigital __ReadDigital;
      static void __ForcePos(int pos);
-     static void Initialise(uint8_t pinBouton, uint8_t pinData, uint8_t pinClock,short positionMax);
+     static void Initialise(uint8_t pinBouton, bool pullup, uint8_t pinData, uint8_t pinClock,short positionMax);
      static bool IsReady();
      static void Tick();
      static short GetPosition();

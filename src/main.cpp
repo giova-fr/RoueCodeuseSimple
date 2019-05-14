@@ -3,10 +3,11 @@
 #include <Arduino.h>
 #include <RoueCodeuseSimple.h>
 
-#define PIN_CLK 4
-#define PIN_DATA 5
-#define PIN_BOUTON 0
-#define ROUE_NBR_DE_POS 4
+#define PIN_CLK 12
+#define PIN_DATA 13
+#define PIN_BOUTON 11
+#define ROUE_NBR_DE_POS 20
+#define PULLUP_BT 1
 
 //déclaration des callbacks
 void QuandBoutonChange(bool position);
@@ -16,7 +17,7 @@ void setup() {
   Serial.begin(9600);
   Serial.println("Bonjour");
 
-  RoueCodeuseSimple::Initialise(PIN_BOUTON,PIN_DATA,PIN_CLK,ROUE_NBR_DE_POS);
+  RoueCodeuseSimple::Initialise(PIN_BOUTON,PULLUP_BT,PIN_DATA,PIN_CLK,ROUE_NBR_DE_POS);
   RoueCodeuseSimple::AbonneBoutonChanged(QuandBoutonChange); //accroche la callback a l'evenement BoutonChanged
   RoueCodeuseSimple::AbonnePositionChanged(QuandPositionChange); //accroche la callback a l'evenement PositionChange
   Serial.println("roue codeuse configurée");

@@ -10,9 +10,10 @@ Simplifie l'utilisation d'une roue codeuse, la classe est statique, donc une seu
 #define PIN_DATA 5
 #define PIN_BOUTON 0
 #define ROUE_NBR_DE_POS 360
+#define PULLUP_BT 1
 
 void setup() {
-  RoueCodeuseSimple::Initialise(PIN_CLK,PIN_DATA,PIN_BOUTON,ROUE_NBR_DE_POS);
+  RoueCodeuseSimple::Initialise(PIN_BOUTON,PULLUP_BT,PIN_CLK,PIN_DATA,ROUE_NBR_DE_POS);
 }
 
 * Important :  Dans Loop, ne pas oublier d'appeller la methode _Tick()_
@@ -41,7 +42,8 @@ Déclenclé à chaque cran de rotation de la roue
 #define PIN_DATA 5
 #define PIN_BOUTON 0
 #define ROUE_NBR_DE_POS 4
-
+  #define PULLUP_BT 1
+  
 //déclaration des callbacks
 void QuandBoutonChange(bool position);
 void QuandPositionChange(int position, bool sens);
@@ -50,7 +52,7 @@ void setup() {
   Serial.begin(9600);
   Serial.println("Bonjour");
 
-  RoueCodeuseSimple::Initialise(PIN_CLK,PIN_DATA,PIN_BOUTON,ROUE_NBR_DE_POS);
+  RoueCodeuseSimple::Initialise(PIN_BOUTON,PULLUP_BT,PIN_CLK,PIN_DATA,ROUE_NBR_DE_POS);
   RoueCodeuseSimple::AbonneBoutonChanged(QuandBoutonChange); //accroche la callback a l'evenement BoutonChanged
   RoueCodeuseSimple::AbonnePositionChanged(QuandPositionChange); //accroche la callback a l'evenement PositionChange
   Serial.println("roue codeuse configurée");
